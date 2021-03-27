@@ -5,18 +5,65 @@
 <head>
     <meta charset="utf-8">
     <title>React test</title>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script> 
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
 </head>
 <body>
     <div id="App"></div>
 
     <script type="text/babel">
         class App extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    tasks: [],
+                    text: "",
+                }
+                //this.handleChange = this.handleChange.bind(this)
+                //this.handleSubmit = this.handleSubmit.bind(this)
+            }
+            handleChange = (event) => {
+                this.setState({ 
+                    text: event.target.value,
+                })
+            }
+
+            handleAdd = () => {
+                this.setState (state => ({
+                    tasks: [...state.tasks, state.text ],
+                    text: "",
+                }));
+            };
+
+            handleRemove = (i) => {
+                let index = i
+                const oldTasks = [...this.state.tasks]
+                oldTasks.splice(index, 1)
+                this.setState (state => ({
+                    tasks: oldTasks,
+                }));
+            }
+
             render() {
-                return <h1>Hello!</h1>
+                return <div> 
+                    <h1>To Do List</h1>
+                    <p>Number of tasks: {this.state.tasks.length}</p>
+                <input type="text" onChange={this.handleChange} value={this.state.text}/>
+                <button type="submit" onClick={this.handleAdd}>Add</button>
+                <ul>
+                    {
+                    this.state.tasks.map((task, index) => (
+                        <li key={index}><button onClick={()=>this.handleRemove(index)} value={index}>Remove</button> {task}</li>
+                        
+                    ))
+                }
+                </ul>
+                <p>{this.state.text}</p>
+                </div>
             }
         }
         ReactDOM.render (<App />, document.getElementById("App"));
