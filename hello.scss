@@ -1,0 +1,15 @@
+$mainColor: blue;
+
+body {
+    text-align: center;
+}
+
+h1 {
+    color: $mainColor;
+}
+
+ul {
+    li {
+        color: $mainColor;
+    }
+}
