@@ -5,6 +5,9 @@
 <head>
     <meta charset="utf-8">
     <title>React test</title>
+
+    <link rel="stylesheet" href="hello.css">
+
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
@@ -57,7 +60,7 @@
                 <ul>
                     {
                     this.state.tasks.map((task, index) => (
-                        <li key={index}><button onClick={()=>this.handleRemove(index)} value={index}>Remove</button> {task}</li>
+                        <li key={index}>{task} <button onClick={()=>this.handleRemove(index)} value={index}>X</button></li>
                         
                     ))
                 }
